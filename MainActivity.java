@@ -1,4 +1,4 @@
-package com.example.rocher.btest;
+package com.arduino.zenit.safelock;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,13 +17,14 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
 
     BluetoothAdapter BT;
     TextView textview;
     ListView listView;
 
-    Button button;
+    Button bt1, bt2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,26 +34,31 @@ public class MainActivity extends AppCompatActivity {
 
         textview = (TextView) findViewById(R.id.tV1);
         listView = (ListView) findViewById(R.id.lV1);
-        button = (Button) findViewById(R.id.button1);
+        bt1 = (Button) findViewById(R.id.btCheckBt);
+        bt2 = (Button) findViewById(R.id.btStart);
 
         BT = BluetoothAdapter.getDefaultAdapter();
 
-        button.setOnClickListener(
+        bt1.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         checkBT();
+                        showPaired();
                     }
                 }
         );
 
 
 
-
-
-
-
     }
+
+    /** Called when the user clicks the Send button */
+    public void sendMessage(View view) {
+        Intent intent = new Intent(MainActivity.this, Panel.class);
+        MainActivity.this.startActivity(intent);
+    }
+
 
 
     void checkBT() {
